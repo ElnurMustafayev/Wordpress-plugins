@@ -1,19 +1,18 @@
 <?php
 
-// https://api.telegram.org/bot<Token>/<Method>?<prop>=<value>&...
-
 class Telegram {
     private $token;
-    private $path;
+    private $path = "https://api.telegram.org";
 
     function __construct() {
-        $this->token = Helper::get_setting("api_token");
-        $this->path = Helper::get_setting("api_site");
+        $this->token = Helper::get_option("api_token");
     }
 
     // get main part of the query string
     function build_path() {
-        return $this->path . "/bot" . $this->token;
+        return empty($this->token)
+                    ? false
+                    : $this->path . "/bot" . $this->token;
     }
 
     // build query string
@@ -22,6 +21,9 @@ class Telegram {
 
         $props_str = implode("&", array_map($mapping_arr, $props, array_keys($props)));
 
-        return $this->build_path() . "/$method_name" . "?$props_str";
+        if($this->build_path() === false)
+            exit("API Token not found!");
+        else 
+            return $this->build_path() . "/$method_name" . "?$props_str";
     }
 }

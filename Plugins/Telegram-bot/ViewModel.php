@@ -1,6 +1,6 @@
 <?php
 
-class Messenger {
+class ViewModel {
     static private $arr;
     
     /**
@@ -12,7 +12,7 @@ class Messenger {
      * @return void
      */
     static function set_viewmodel($view, $data) {
-        Messenger::$arr[$view] = $data;
+        ViewModel::$arr[$view] = $data;
     }
 
     /**
@@ -23,6 +23,6 @@ class Messenger {
      * @return array            assoc viewmodel array 
      */
     static function get_viewmodel($view) {
-        return Messenger::$arr[$view];
+        return ViewModel::$arr[$view];
     }
 }

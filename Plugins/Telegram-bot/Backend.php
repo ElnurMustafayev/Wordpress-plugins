@@ -2,7 +2,7 @@
 
 add_action('admin_menu', 'add_menu');
 
-// Add plugin menu in sidebar
+// Add plugin menu in sidebar action
 function add_menu() {
     // Add "Telegram Bot" menu
     $telegram_logo = "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg";
@@ -14,10 +14,21 @@ function add_menu() {
 
 // Home page output
 function plugin_home_page() {
-    Helper::view("home");
+    $has_token = !empty(Helper::get_option("api_token"));
+
+    $vm = [
+        // bcz false does not print in html
+        "has_token" => intval($has_token),
+    ];
+
+    Helper::view("home", $vm);
 }
 
 // Admin panel page output
 function plugin_admin_panel_page(){
-    Helper::view("admin");
+    $vm = [
+        "api_token" => Helper::get_option("api_token"),
+    ];
+
+    Helper::view("admin", $vm);
 }
