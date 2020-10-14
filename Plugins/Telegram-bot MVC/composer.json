@@ -1,0 +1,15 @@
+{
+    "name": "elnur/telegram-bot",
+    "authors": [
+        {
+            "name": "Elnur",
+            "email": "57497680+ElnurMustafayev@users.noreply.github.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TelegramBot\\": ""
+        }
+    },
+    "require": {}
+}
