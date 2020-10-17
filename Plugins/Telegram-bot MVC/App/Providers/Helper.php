@@ -21,15 +21,22 @@ class Helper {
             ? add_option($key, $value)
             : update_option($key, $value);
     }
-
-    /** prints view
+    
+    /**
+     * ROOT . inner/inner/.../inner.php
      *
-     * @param  string   $view_name    view name without extension
-     * @param  array    $viewmodel    assoc array ["data_name" => "value", ...]
+     * @param  array    $inners     names off inner folders/files
+     *                              ex: [Main, Controllers, Ajax]
+     * 
+     * @return string               ROOT . inner/inner/.../inner.php
      */
-    static function view($view_name) {
-        $path = plugin_dir_path(__FILE__) . "views/$view_name.php";
+    static function build_path($inners, $file_path = true, $is_php = true) {
+        $glued_inners = implode("/", $inners);
 
-        require_once $path;
+        $extension = $is_php ? ".php" : "";
+        $start = $file_path ? PLUGIN_DIR : PLUGIN_URL;
+        
+        // _ROOT_\inner\...\inner.$extension
+        return $start . "/" . $glued_inners . $extension;
     }
 }
